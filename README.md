@@ -1,2 +1,2 @@
-# Mini_Projects
-This repository is a base for all my Mini Projects
+# Project Work
+Repo that has all my project works
