@@ -1,0 +1,25 @@
+    <style>
+      body,
+      td {
+        text-align: center;
+        font-size: 16px;
+      }
+      tr,
+      td {
+        padding: 22px;
+      }
+      table {
+        border-collapse: collapse;
+        font-weight: bold;
+        background-color: #5c4e42;
+        color: #ffffff;
+        width: 650px;
+        height: 600px;
+      }
+      button {
+        width: 20%;
+        padding: 10px;
+        background-color: rgb(4, 109, 31);
+        color: #ffffff;
+      }
+    </style>
