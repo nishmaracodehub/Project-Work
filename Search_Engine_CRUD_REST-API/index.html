@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Hospitals Search Engine</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+    <style>
+      body,
+      html {
+        background-color: #777777;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #3a6186; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to left,
+          #3a6186,
+          #89253e
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(
+          to left,
+          #3a6186,
+          #89253e
+        ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
+      footer {
+        margin-top: 25%;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        font-size: 20px;
+      }
+      .rights {
+        height: 100px;
+      }
+      .container {
+        margin-top: 10%;
+      }
+      .navbar-brand {
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+      <a class="navbar-brand" href="#">Patient Form</a>
+
+      <!-- Include this only if you are using jquery -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Remove ID collapseibleNavbar below -->
+
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>     -->
+        </ul>
+      </div>
+    </nav>
+    <main>
+      <div class="container bg-light">
+        <form
+          action="/hospitals"
+          method="POST"
+          id="patientForm"
+          enctype="multipart/form-data"
+        >
+          <div class="row my-5"></div>
+          <h5 id="description" class="my-5">
+            Please fill in the details below
+          </h5>
+          <div class="row mx-auto my-3">
+            <div class="col-sm-5 text-right">
+              <label for="name" id="name-label"
+                ><sup>*&nbsp;</sup>Patient Name:</label
+              >
+            </div>
+            <div class="col-sm-4 input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="far fa-user"></i>
+                </span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="patientName"
+                placeholder="Enter your Name"
+                autofocus
+                required
+              />
+            </div>
+          </div>
+          <div class="row mx-auto my-3">
+            <div class="col-sm-5 text-right">
+              <label for="email" id="email-label"
+                ><sup>*&nbsp;</sup>Patient Email:</label
+              >
+            </div>
+            <div class="col-sm-4 input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-at"></i>
+                </span>
+              </div>
+              <input
+                type="email"
+                pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
+                class="form-control"
+                id="email"
+                name="patientEmail"
+                placeholder="Enter your Email"
+                autofocus
+                required
+              />
+            </div>
+          </div>
+          <div class="row mx-auto my-3">
+            <div class="col-sm-5 text-right">
+              <label for="name" id="name-label"
+                ><sup>*&nbsp;</sup>Body Part:</label
+              >
+            </div>
+            <div class="col-sm-4 input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-info">&nbsp;&nbsp;</i>
+                </span>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                name="bodyPart"
+                id="bodyPart"
+                name="bodyPart"
+                placeholder="Enter Body Part"
+                autofocus
+                required
+              />
+            </div>
+          </div>
+          <div class="row mx-auto my-3">
+            <div class="col-sm-5 text-right">
+              <label for="name" id="name-label"
+                ><sup>&nbsp;</sup>Upload Forms:</label
+              >
+            </div>
+            <div class="col-sm-4 input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fas fa-upload">&nbsp;&nbsp;</i>
+                </span>
+              </div>
+              <input
+                type="file"
+                class="form-control"
+                name="fileUpload"
+                id="file"
+                placeholder="File upload"
+                autofocus
+              />
+            </div>
+          </div>
+
+          <div class="row mx-auto my-3 form-group">
+            <div class="col-sm-5 text-right">
+              <label for="dropdown"
+                >Please select the Surgery type from the list:</label
+              >
+            </div>
+            <div class="col-sm-4">
+              <select class="form-control" id="dropdown" name="surgeryType">
+                <option selected>Select an Option</option>
+                <option>Knee Surgery</option>
+                <option>Shoulder Surgery</option>
+                <option>liver Surgery</option>
+                <option>Kidney Surgery</option>
+                <option>Heart Surgery</option>
+              </select>
+            </div>
+          </div>
+          <input
+            type="submit"
+            name="submit"
+            class="form-group btn btn-primary mb-5 mt-3"
+            value="Search"
+          />
+        </form>
+      </div>
+    </main>
+    <footer>
+      <div
+        class="bg-dark text-white rights d-flex flex-column justify-content-center fixed-bottom"
+      >
+        <!-- Rights-->
+        <p>
+          <span>© </span><span class="copyright-year">2019</span><span> </span
+          ><span>The Hacking School</span><span>. </span
+          ><span>All Rights Reserved.</span>
+        </p>
+      </div>
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

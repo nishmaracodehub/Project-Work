@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <style>
+      body,
+      html {
+        font-family: Arial, Helvetica, sans-serif;
+        color: #fff;
+        background: #3a6186; /* fallback for old browsers */
+        background: -webkit-linear-gradient(
+          to left,
+          #3a6186,
+          #89253e
+        ); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #3a6186, #89253e);
+      } /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      th,
+      td,
+      p,
+      input {
+        font: 20px Verdana;
+      }
+      table,
+      th,
+      td {
+        border: solid 1px #ddd;
+        border-collapse: collapse;
+        padding: 2px 3px;
+        text-align: center;
+      }
+      th {
+        font-weight: bold;
+      }
+      .container {
+        height: 100%;
+        margin: 0 auto;
+        background-color: #fff;
+        color: #fff;
+      }
+      footer {
+        margin-top: 250px;
+      }
+      .rights {
+        height: 60px;
+      }
+      @font-face {
+        font-family: "simplifica";
+        src: url("/home/nishanth/Downloads/SIMPLIFICA/SIMPLIFICA/SIMPLIFICA Typeface.ttf");
+      }
+      .navbar-brand {
+        font-size: 36px;
+        font-family: "simplifica";
+        font-weight: 25px;
+      }
+      .nav-link {
+        font-size: 22px;
+      }
+    </style>
+  </head>
+
+  <body onload="createTableFromJSON()">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand ml-4" href="/">Hospital Search Engine</a>
+      <!-- Include this only if you are using jquery-->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Remove ID collapseibleNavbar below-->
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto mr-4">
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.thehackingschool.com/"
+              >About</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <main>
+      <h2 class="text-center my-5">Hospitals Information</h2>
+      <div class="container">
+        <div class="table-responsive my-5"></div>
+        <p class="table mb-5" id="showData"></p>
+      </div>
+    </main>
+    <footer>
+      <div
+        class="bg-dark text-white rights d-flex flex-column justify-content-center"
+      >
+        <!-- Rights-->
+        <p>
+          <span>© </span><span class="copyright-year">2019</span><span> </span
+          ><span>The Hacking School</span><span>. </span
+          ><span>All Rights Reserved.</span>
+        </p>
+      </div>
+    </footer>
+    <script>
+      function createTableFromJSON() {
+        let hospitalsList = ;
+        console.log(hospitalsList);
+        //extract value for HTML Header
+        var col = [];
+        for (var i = 0; i < hospitalsList.length; i++) {
+          for (var key in hospitalsList[i]) {
+            if (col.indexOf(key) === -1) {
+              col.push(key);
+            }
+          }
+        }
+        //Create Dynamic Table
+        var table = document.createElement("table");
+        table.setAttribute("align", "center");
+        table.setAttribute("width", "1000");
+        // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+        var tr = table.insertRow(-1); //table tow
+        for (var i = 0; i < col.length; i++) {
+          var th = document.createElement("th"); // TABLE HEADER.
+          th.innerHTML = col[i].toUpperCase();
+          tr.appendChild(th);
+        }
+        // ADD JSON DATA TO THE TABLE AS ROWS.
+        for (var i = 0; i < hospitalsList.length; i++) {
+          tr = table.insertRow(-1);
+          for (var j = 0; j < col.length; j++) {
+            var tabCell = tr.insertCell(-1);
+            tabCell.innerHTML = hospitalsList[i][col[j]];
+          }
+        }
+        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+        var divContainer = document.getElementById("showData");
+        divContainer.innerHTML = "";
+        divContainer.appendChild(table);
+      }
+    </script>
+  </body>
+</html>
