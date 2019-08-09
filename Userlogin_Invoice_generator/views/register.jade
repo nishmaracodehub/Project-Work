@@ -1,0 +1,136 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title SignUp Page
+    // Bootstrap 4 CDN
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+    // Font Awesome CDN
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.3.1/css/all.css', integrity='sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU', crossorigin='anonymous')
+    // Custom CSS Styles
+    style.
+      /* Media objects */
+      @media (min-width: 1200px) {
+      .container {
+      max-width: 1140px;
+      }
+      }
+      @media (min-width: 992px) {
+      .container {
+      max-width: 960px;
+      }
+      }
+      @media (min-width: 768px) {
+      .container {
+      max-width: 720px;
+      }
+      }
+      @media (min-width: 576px) {
+      .container {
+      max-width: 540px;
+      }
+      }
+      html {
+      font-family: sans-serif;
+      line-height: 1.15;
+      -webkit-tap-highlight-color: transparent;
+      }
+      body {
+      margin: 0;
+      font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: left;
+      color: black;
+      background-color: azure;
+      }
+      html,
+      body {
+      background: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height: 100%;
+      }
+      .container {
+      height: 100%;
+      align-content: center
+      }
+      .input-group-prepend span {
+      width: 50px;
+      background-color: #FFC312;
+      color: black;
+      border: 0 !important;
+      }
+      .register_btn {
+      color: black;
+      background-color: #FFC312;
+      width: 100px;
+      }
+      .card {
+      height: 660px;
+      margin-top: auto;
+      margin-bottom: auto;
+      width: 400px;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      }
+  body
+    .container
+      != messages('message', locals)
+      if errors
+        each error, i in errors
+          div(class="alert alert-danger") #{error.msg}
+      block content
+      .d-flex.justify-content-center.h-100
+        .card
+          .card-header.text-center.text-white
+            h3 Sign Up
+          .card-body
+            form(action='/register', method='POST', enctype="multipart/form-data")
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.far.fa-user
+                input.form-control(type='text', name='fname', placeholder='First Name')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.far.fa-user
+                input.form-control(type='text', name='lname', placeholder='Last Name')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-at
+                input.form-control(type='email', name='email', placeholder='Email ID')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-phone
+                input.form-control(type='phone', name='phone', placeholder='Phone Number')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-key
+                input.form-control(type='password', name='password', placeholder='Password')
+              .input-group.form-group
+                .input-group-prepend
+                  span.input-group-text
+                    i.fas.fa-key
+                input.form-control(type='password', name='rppassword', placeholder='Confirm Password')
+              .form-group
+                label.text-white Profile Image
+                input.form-control(type="file",name="profileimage")
+              .form-group
+                input.btn.float-right.register_btn(type='submit', value='Register')
+          .card-footer.mb-4
+            .d-flex.justify-content-center.text-white
+              h5 Already a User?
+              a(href='/')
+                button.btn.btn-outline-primary.ml-3 Login
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', integrity='sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')

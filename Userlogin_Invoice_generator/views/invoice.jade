@@ -1,0 +1,304 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title Invoice-Generator
+    // Bootstrap 4 CDN
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+    // Font Awesome CDN
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.3.1/css/all.css', integrity='sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU', crossorigin='anonymous')
+    style.
+      /* Media objects */
+      @media (min-width: 1200px) {
+      .container {
+      max-width: 1540px;
+      }
+      }
+      @media (min-width: 992px) {
+      .container {
+      max-width: 1400px;
+      }
+      }
+      @media (min-width: 768px) {
+      .container {
+      max-width: 1220px;
+      }
+      }
+      @media (min-width: 576px) {
+      .container {
+      max-width: 940px;
+      }
+      }
+      html {
+      font-family: sans-serif;
+      line-height: 1.15;
+      -webkit-tap-highlight-color: transparent;
+      }
+      body {
+      font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: left;
+      color: black;
+      background-color: azure;
+      }
+      html,
+      body {
+      background: url('http://getwallpapers.com/wallpaper/full/a/6/c/52814.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height: 100%;
+      }
+      .card {
+      min-height: 1000px;
+      margin-top: auto;
+      margin-bottom: auto;
+      width: 1200px;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      }
+      .invlab{
+      background-color: rgba(0, 0, 0, 0.5);
+      color:white;
+      border:none;
+      border-color: transparent;
+      }
+      .container {
+      height: 100%;
+      align-content: center;
+      }
+      .bg-color {
+      background-color: rgba(104, 57, 72, 0.993)
+      }
+      .btn-preview {
+      background-color: #c7c3c3
+      }
+      .bar1 {
+      background-color: #1a1818;
+      width: auto;
+      }
+      .bar2 {
+      background-color: #757474;
+      width: auto;
+      }
+    script.
+      //     function calculate(){
+      //       var price = document.getElementById('itemPrice').value;
+      //       var quantity = document.getElementById('itemQuantity').value;
+      //       var subTotal = Number(price) * Number(quantity);
+      //       document.getElementById('subTotal').value = subTotal;
+      //       var tax = document.getElementById('tax').value;
+      //       var total = Math.round(subTotal + (subTotal * tax / 100));
+      //       document.getElementById('total').value = total;
+      //   }
+      function myFun(){
+      var i=1;
+      $("#add_row").click(function(){b=i-1;
+      $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      i++;
+      });
+      $("#delete_row").click(function(){
+      if(i>1){
+      $("#addr"+(i-1)).html('');
+      i--;
+      }
+      calc();
+      });
+      $('#tab_logic tbody').on('keyup change',function(){
+      calc();
+      });
+      $('#tax').on('keyup change',function(){
+      calc_total();
+      });
+      }
+      function calc()
+      {
+      $('#tab_logic tbody tr').each(function(i, element) {
+      var html = $(this).html();
+      if(html!='')
+      {
+      var qty = $(this).find('.qty').val();
+      var price = $(this).find('.price').val();
+      $(this).find('.total').val(qty*price);
+      calc_total();
+      }
+      });
+      }
+      function calc_total()
+      {
+      total=0;
+      $('.total').each(function() {
+      total += parseInt($(this).val());
+      });
+      $('#sub_total').val(total.toFixed(2));
+      tax_sum=total/100*$('#tax').val();
+      $('#tax_amount').val(tax_sum.toFixed(2));
+      $('#total_amount').val((tax_sum+total).toFixed(2));
+      }
+      function invoicePrint(){
+      window.print();
+      }
+  body(onload='myFun()')
+    header
+      nav.navbar.navbar-expand-lg.navbar-light.bg-color.d-flex.justify-content-around
+        a.navbar-brand(href='#')
+          span.text-white Invoice Generator
+        h5.h5.text-white.m-auto Hello  #{user}
+        ul.nav.navbar-nav
+          li
+            a.h5.text-white(href='/logout') Logout
+    section
+      .container
+        != messages('message', locals)
+        if errors
+          each error, i in errors
+            div(class="alert alert-danger") #{error.msg}
+        block content
+        .d-flex.justify-content-center
+          .card
+            form.form-group(action='/login/invoice/data', method='POST')
+              // Start of Card header
+              .card-header.text-white
+                .row.d-flex.ml-2.justify-content-around
+                  h3.h4.mt-4 From
+                  .col-sm-5.my-2
+                    .input-group.form-group.mt-3
+                      .input-group-prepend
+                        span.input-group-text
+                          i.far.fa-user
+                        input.form-control.input-wid(type='text', name='nameBus',value='#{user}', placeholder='Business Name')
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.fas.fa-at
+                        input.form-control(type='email', name='emailBus',value='#{email}', placeholder='Business Email')
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.far.fa-address-card
+                        input.form-control(type='text', name='addressBus', placeholder='Business Address')
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.fas.fa-phone
+                        input.form-control(type='phone', name='numBus', placeholder='Phone Number')
+                  h3.h4.mt-4 To
+                  .col-sm-5.my-2                    
+                    .input-group.form-group.mt-3
+                      .input-group-prepend
+                        span.input-group-text
+                          i.far.fa-user
+                        input.form-control(type='text', name='nameCli', placeholder='Client Name')
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.fas.fa-at
+                        input.form-control(type='email', name='emailCli', placeholder='Client Email')
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.far.fa-address-card
+                        input.form-control(type='text', name='addressCli', placeholder='Client Address')
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.fas.fa-phone
+                        input.form-control(type='phone', name='numCli', placeholder='Phone Number')
+              // End of Card Header
+              // Start of Card Body
+              .card-body.text-white
+                .row.ml-2
+                  .col-sm-12
+                    h4 Invoice Description
+                .row
+                  .col.mr-4
+                  .col-sm-5.mt-4
+                    label(for='InvoiceID') Invoice Number
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.fas.fa-hashtag
+                        input.form-control(type='text', name='invNum', placeholder='0000')
+                  .col-sm-5.mt-4.mr-2
+                    label(for='Invoice') Invoice Date
+                    .input-group.form-group
+                      .input-group-prepend
+                        span.input-group-text
+                          i.fas.fa-calendar
+                        input.form-control(type='text', name='invNum', placeholder='0000')
+                .row.clearfix.mt-4
+                  .col-md-12
+                    table#tab_logic.table.table-hover
+                      thead
+                        tr
+                          th.text-center  # 
+                          th.text-center  Product 
+                          th.text-center  Qty 
+                          th.text-center  Price 
+                          th.text-center  Total 
+                      tbody
+                        tr#addr0
+                          td 1
+                          td
+                            input.form-control(type='text', name='itemDes', placeholder='Enter Product Name')
+                          td
+                            input.form-control.qty(type='number', name='quantity', placeholder='Enter Qty', step='0', min='0')
+                          td
+                            input.form-control.price(type='number', name='price', placeholder='Enter Unit Price', step='0.00', min='0')
+                          td
+                            input.form-control.total(type='number', name='subTotal', placeholder='0.00', readonly='')
+                        tr#addr1
+                .row.clearfix
+                  .col-md-12
+                    button#add_row.btn.btn-default.float-left.ml-5(type='button') Add Row
+                    button#delete_row.float-right.btn.btn-default.mr-3(type='button')
+                      | Delete
+                      | Row
+                .row.clearfix.mt-4.d-flex.justify-content-end
+                  .col-md-4
+                    table#tab_logic_total.table.table-hover
+                      tbody
+                        tr
+                          th.text-center Sub Total
+                          td.text-center
+                            input#sub_total.form-control(type='number', name='subTotal', placeholder='0.00', readonly='')
+                        tr
+                          th.text-center Tax
+                          td.text-center
+                            .input-group.form-group.mb-2.mb-sm-0
+                              input#tax.form-control(type='number', placeholder='0')
+                              .input-group-append
+                                span.input-group-text
+                                  i.fas.fa-percentage
+                        tr
+                          th.text-center Tax Amount
+                          td.text-center
+                            input#tax_amount.form-control(type='number', name='tax', placeholder='0.00', readonly='')
+                        tr
+                          th.text-center Grand Total
+                          td.text-center
+                            input#total_amount.form-control(type='number', name='total', placeholder='0.00', readonly='')
+                // End of Card Body
+                // Start of Card Footer
+                .card-footer
+                  .row.bar2.mt-2
+                    .col-sm-6(class='mt-0.8')
+                  // Start of Preview and Email Buttons
+                  .row.mt-4
+                    .col.text-center
+                      a(href='/login/invoice')
+                        button.btn.btn-preview(type='button') Clear
+                    .col.text-center
+                      button.btn.btn-danger(type='button', onclick='invoicePrint()') Print
+                    .col.text-center
+                      a(href='/login/invoice/data')
+                        input#submit.form-group.btn.btn-primary(type='submit', value='Generate')
+                  // End of Preview and Email buttons
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')

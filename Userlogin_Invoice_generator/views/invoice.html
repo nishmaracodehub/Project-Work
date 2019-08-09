@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Invoice-Generator</title>
+    <!-- Bootstrap 4 CDN-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <!-- Font Awesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <style>
+        /* Media objects */
+        @media (min-width: 1200px) {
+      .container {
+      max-width: 1540px;
+      }
+      }
+      @media (min-width: 992px) {
+      .container {
+      max-width: 1400px;
+      }
+      }
+      @media (min-width: 768px) {
+      .container {
+      max-width: 1220px;
+      }
+      }
+      @media (min-width: 576px) {
+      .container {
+      max-width: 940px;
+      }
+      }
+
+        html {
+      font-family: sans-serif;
+      line-height: 1.15;
+      -webkit-tap-highlight-color: transparent;
+      }
+      body {
+      font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: left;
+      color: black;
+      background-color: azure;
+      }
+      html,
+      body {
+      background: url('http://getwallpapers.com/wallpaper/full/a/6/c/52814.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height: 100%;
+      }
+      .card {
+      min-height: 1000px;
+      margin-top: auto;
+      margin-bottom: auto;
+      width: 1200px;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      }
+
+      .invlab{
+        background-color: rgba(0, 0, 0, 0.5);
+        color:white;
+        border:none;
+        border-color: transparent;
+      }
+      .container {
+      height: 100%;
+      align-content: center;
+      }
+      .bg-color {
+      background-color: rgba(104, 57, 72, 0.993)
+      }
+      .btn-preview {
+      background-color: #c7c3c3
+      }
+      .bar1 {
+      background-color: #1a1818;
+      width: auto;
+      }
+      .bar2 {
+      background-color: #757474;
+      width: auto;
+      }
+
+    </style>
+    <Script>
+        //     function calculate(){
+        //       var price = document.getElementById('itemPrice').value;
+        //       var quantity = document.getElementById('itemQuantity').value;
+        //       var subTotal = Number(price) * Number(quantity);
+        //       document.getElementById('subTotal').value = subTotal;
+
+        //       var tax = document.getElementById('tax').value;
+        //       var total = Math.round(subTotal + (subTotal * tax / 100));
+
+        //       document.getElementById('total').value = total;
+        //   }
+        function myFun() {
+            var i = 1;
+            $("#add_row").click(function () {
+                b = i - 1;
+                $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html(i + 1);
+                $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
+                i++;
+            });
+            $("#delete_row").click(function () {
+                if (i > 1) {
+                    $("#addr" + (i - 1)).html('');
+                    i--;
+                }
+                calc();
+            });
+
+            $('#tab_logic tbody').on('keyup change', function () {
+                calc();
+            });
+            $('#tax').on('keyup change', function () {
+                calc_total();
+            });
+
+
+        }
+
+        function calc() {
+            $('#tab_logic tbody tr').each(function (i, element) {
+                var html = $(this).html();
+                if (html != '') {
+                    var qty = $(this).find('.qty').val();
+                    var price = $(this).find('.price').val();
+                    $(this).find('.total').val(qty * price);
+
+                    calc_total();
+                }
+            });
+        }
+
+        function calc_total() {
+            total = 0;
+            $('.total').each(function () {
+                total += parseInt($(this).val());
+            });
+            $('#sub_total').val(total.toFixed(2));
+            tax_sum = total / 100 * $('#tax').val();
+            $('#tax_amount').val(tax_sum.toFixed(2));
+            $('#total_amount').val((tax_sum + total).toFixed(2));
+        }
+        function invoicePrint() {
+            window.print();
+        }
+
+    </Script>
+</head>
+
+<body onload="myFun()">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-color d-flex justify-content-around"><a class="navbar-brand"
+                href="#"><span class="text-white">Invoice Generator</span></a>
+            <h4 class="h4 text-white m-auto">Hello&nbsp; #{user}</h4>
+            <ul class="nav navbar-nav">
+                <li><a class="h5 text-white" href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="card">
+                    <form class="form-group" action="/login/invoice/data" method="POST">
+                        <!--Start of Card header-->
+                        <div class="card-header text-white">
+                            <div class="row d-flex ml-3 justify-content-around">
+                                <div class="col-sm-5 ml-4 my-4">
+                                    <h3 class="h4">From</h3>
+                                    <div class="input-group form-group mt-3">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-user"></i></span>
+                                            <input class="form-control input-wid" type="text" name="nameBus"
+                                                placeholder="Business Name">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-at"></i></span>
+                                            <input class="form-control" type="email" name="emailBus" placeholder="Business Email">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                            <input class="form-control" type="text" name="addressBus" placeholder="Business Address">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                            <input class="form-control" type="phone" name="numBus" placeholder="Phone Number">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-5 ml-4 my-4">
+                                    <h3 class="h4">To</h3>
+                                    <div class="input-group form-group mt-3">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-user"></i></span>
+                                            <input class="form-control" type="text" name="nameCli" placeholder="Client Name">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-at"></i></span>
+                                            <input class="form-control" type="email" name="emailCli" placeholder="Client Email">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                            <input class="form-control" type="text" name="addressCli" placeholder="Client Address">
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                            <input class="form-control" type="phone" name="numCli" placeholder="Phone Number">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End of Card Header-->
+                        <!--Start of Card Body-->
+                        <div class="card-body text-white">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4>Invoice Description</h4>
+                                </div>
+                            </div>
+                            <div class="row ml-3 d-flex justify-content-around">
+                                <div class="col-sm-5 mt-4 ml-4">
+                                    <label for="InvoiceID">Invoice Number</label>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-hashtag"></i>
+                                            </span>
+                                            <input class="form-control" type="text" name="invNum" placeholder="0000">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 mt-4 ml-4">
+                                    <label for="Invoice">Invoice Date</label>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-calendar"></i>
+                                            </span>
+                                            <input class="form-control" type="text" name="invNum" placeholder="0000">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix mt-4">
+                                <div class="col-md-12">
+                                    <table class="table table-hover" id="tab_logic">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center"> # </th>
+                                                <th class="text-center"> Product </th>
+                                                <th class="text-center"> Qty </th>
+                                                <th class="text-center"> Price </th>
+                                                <th class="text-center"> Total </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr id='addr0'>
+                                                <td>1</td>
+                                                <td><input type="text" name='itemDes' placeholder='Enter Product Name'
+                                                        class="form-control" /></td>
+                                                <td><input type="number" name='quantity' placeholder='Enter Qty' class="form-control qty"
+                                                        step="0" min="0" /></td>
+                                                <td><input type="number" name='price' placeholder='Enter Unit Price'
+                                                        class="form-control price" step="0.00" min="0" /></td>
+                                                <td><input type="number" name='subTotal' placeholder='0.00' class="form-control total"
+                                                        readonly /></td>
+                                            </tr>
+                                            <tr id='addr1'></tr>
+                                        </tbody>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <button type="button" id="add_row" class="btn btn-default float-left">Add Row</button>
+                                    <button type="button" id='delete_row' class="float-right btn btn-default">Delete
+                                        Row</button>
+                                </div>
+                            </div>
+                            <div class="row clearfix mt-4 d-flex justify-content-end">
+                                <div class="col-md-4">
+                                    <table class="table table-hover" id="tab_logic_total">
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-center">Sub Total</th>
+                                                <td class="text-center"><input type="number" name='subTotal'
+                                                        placeholder='0.00' class="form-control" id="sub_total" readonly /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center">Tax</th>
+                                                <td class="text-center">
+                                                    <div class="input-group form-group mb-2 mb-sm-0">
+                                                        <input type="number" class="form-control" id="tax" placeholder="0">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-percentage"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center">Tax Amount</th>
+                                                <td class="text-center"><input type="number" name='tax' id="tax_amount"
+                                                        placeholder='0.00' class="form-control" readonly /></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-center">Grand Total</th>
+                                                <td class="text-center"><input type="number" name='total' id="total_amount"
+                                                        placeholder='0.00' class="form-control" readonly /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- //without tabular functionality
+                                <div class="col-sm-5 ml-4 mt-4">
+                                    <label for="item">Item</label>
+                                    <div class=" input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>
+                                            <input class="form-control" type="text" name="itemDes" placeholder="Item Name">
+                                        </div>
+                                    </div>
+                                    <label for="Price">Price</label>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-rupee-sign"></i>
+                                            </span>
+                                            <input class="form-control" type="number" name="price" id="itemPrice"
+                                                oninput="calculate()" placeholder="Item Price">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-sm-6 text-center">
+                                            <label for="Quantity">Quantity</label>
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <input class="form-control text-center" type="number" name="quantity"
+                                                    id="itemQuantity" oninput="calculate()" placeholder="0">
+                                            </div>
+                                        </div>
+                                        <div class="col"></div>
+
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-6 text-center">
+                                            <label for="SubTotal">SubTotal</label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <input class="form-control text-center" type="text" name="subTotal" id="subTotal"
+                                                    placeholder="0.00">
+                                            </div>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-6 text-center">
+                                            <label for="Tax">Tax%</label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <input class="form-control text-center" type="text" name="tax" id="tax"
+                                                    oninput="calculate()" placeholder="0%">
+                                            </div>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-6 text-center">
+                                            <label for="Total">Total</label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <input class="form-control text-center" type="text" name="total" id="total"
+                                                    placeholder="0.00">
+                                            </div>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+
+                            <!--End of Card Body-->
+                            <!--Start of Card Footer-->
+                            <div class="card-footer">
+                                <div class="row bar2 mt-2">
+                                    <div class="col-sm-6 mt-0.8"></div>
+                                </div>
+                                <!-- Start of Preview and Email Buttons-->
+                                <div class="row mt-4">
+                                    <div class="col text-center">
+                                        <a href="/login/invoice">
+                                            <button class="btn btn-preview" type="button">Clear</button>
+                                        </a>
+                                    </div>
+                                    <div class="col text-center">
+                                        <button class="btn btn-danger" type="button" onclick="invoicePrint()">Print</button>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a href="/login/invoice/data">
+                                            <input class="form-group btn btn-primary" id="submit" type="submit" value="Generate">
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- End of Preview and Email buttons-->
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

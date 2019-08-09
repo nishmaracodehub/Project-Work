@@ -1,0 +1,90 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title Success Page
+    // Bootstrap 4 CDN
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+    // Font Awesome CDN
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.3.1/css/all.css', integrity='sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU', crossorigin='anonymous')
+    // Custom CSS Styles
+    style.
+      /* Media objects */
+      @media (min-width: 1200px) {
+      .container {
+      max-width: 1140px;
+      }
+      }
+      @media (min-width: 992px) {
+      .container {
+      max-width: 960px;
+      }
+      }
+      @media (min-width: 768px) {
+      .container {
+      max-width: 720px;
+      }
+      }
+      @media (min-width: 576px) {
+      .container {
+      max-width: 540px;
+      }
+      }
+      html {
+      font-family: sans-serif;
+      line-height: 1.15;
+      -webkit-tap-highlight-color: transparent;
+      }
+      body {
+      margin: 0;
+      font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: left;
+      color: black;
+      background-color: azure;
+      }
+      html,
+      body {
+      background: url('http://getwallpapers.com/wallpaper/full/3/3/8/29382.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      height: 100%;
+      }
+      .container {
+      height: 100%;
+      align-content: center
+      }
+      .card {
+      height: 500px;
+      margin-top: auto;
+      margin-bottom: auto;
+      width: 800px;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      }
+      .email_btn {
+      width: 100px;
+      }
+  body
+    .container
+      .d-flex.justify-content-center.h-100
+        .card.text-white
+          .card-header.text-center
+            h3 Hurray!!!
+            p.h5 Your Invoice Generated Succesfully
+          .card-body.mb-5.text-center
+            h4.my-5 Please Check your invoice at:
+            a(href='http://www.gmail.com/',target='_blank')
+              button.btn.btn-success.email_btn Email
+          .card-footer.mb-4
+            .d-flex.justify-content-center.text-white
+              a(href='/')
+                button.btn.btn-outline-primary.ml-3 Login
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', integrity='sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', integrity='sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k', crossorigin='anonymous')
