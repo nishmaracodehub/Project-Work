@@ -1,0 +1,98 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title GitCoin
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.3/css/all.css', integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/', crossorigin='anonymous')
+    style.
+      body,
+      html {
+      background-color: rgb(245, 245, 245);
+      font-family: "Ubuntu";
+      height: 100%;
+      margin: 0;
+      }
+      .lgn_btn {
+      margin-top: 10%;
+      }
+      .container {
+      height: 70%;
+      width: 960px;
+      margin: 10% auto -10px;
+      }
+      footer {
+      width: 100%;
+      text-align: center;
+      font-size: 20px;
+      }
+      .footer,
+      .lgn_btn{
+      height : 50px;
+      }
+      .navbar-brand {
+      font-size: 34px;
+      font-family: "Orbitron", sans-serif;
+      font-style: italic;
+      }
+      .nav-link {
+      font-size: 20px;
+      }
+      .contact{
+      text-decoration: none;
+      }
+      .btn{
+      background-color: #f2f2f2;
+      color: #757575;
+      font-weight: bold;
+      }
+      @media screen and (min-width: 576px) {
+      .container{
+      width: 100%;
+      }
+      .lgn_btn{
+      width: 100%;
+      }
+      }
+      @media screen and (max-width: 576px) {
+      .container{
+      width: 100%;
+      margin-top: 25%;
+      }
+      img{
+      width: 265px;
+      height: auto
+      }
+      .btn{
+      font-size: 3vw;
+      }
+      }
+  body
+    //
+      <nav class="navbar navbar-expand-sm bg-light fixed-top">
+      <a class="navbar-brand ml-4 text-dark" href="/">Hacking School CodeHub</a>
+      </nav>
+    .container.text-center
+      img.mx-auto.d-block(src='images/logo.jpeg', alt='GitCoinlogoimage', width='530', height='174')
+      form.form-group(action='/auth/github', method='GET')
+        .row.d-flex-justify-content-center
+          .col-xs-3.col-md-12.mx-auto.lgn_btn
+            button.btn.btn-secondary.btn-responsive(type='submit')
+              | Login with Github
+    footer
+      .text-dark.d-flex.flex-column.justify-content-center.mt-5
+        // Rights
+        p
+          span Made with ♥
+          span  
+          span
+            a.contact.text-dark(href='https://www.thehackingschool.com/')
+              | The
+              | Hacking School
+          span
+            | .
+    script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js', integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')
